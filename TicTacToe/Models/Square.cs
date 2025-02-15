@@ -11,5 +11,13 @@ namespace TicTacToe.Models
     {
         public int BoardPosition { get; set; }
         public State SquareState { get; set; }
+
+        public Square() { }
+
+        public Square(int boardPosition, State squareState)
+        {
+            this.BoardPosition = boardPosition;
+            this.SquareState = squareState;
+        }
     }
 }
