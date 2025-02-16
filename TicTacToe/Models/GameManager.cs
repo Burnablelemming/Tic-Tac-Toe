@@ -153,12 +153,32 @@ namespace TicTacToe.Models
 
         private void DisplayBoard(Board gameBoard)
         {
-            Console.WriteLine($"{gameBoard.board[0][0].SquareState}|{gameBoard.board[0][1].SquareState}|{gameBoard.board[0][2].SquareState}"); // Row 1
-            Console.WriteLine("---+---+---");
-            Console.WriteLine($"{gameBoard.board[1][0].SquareState}|{gameBoard.board[1][1].SquareState}|{gameBoard.board[1][2].SquareState}"); // Row 2
-            Console.WriteLine("---+---+---");
-            Console.WriteLine($"{gameBoard.board[2][0].SquareState}|{gameBoard.board[2][1].SquareState}|{gameBoard.board[2][2].SquareState}"); // Row 3
+            for (int i = 0; i < gameBoard.board.Length; i++)
+            {
+                for (int j = 0; j < gameBoard.board[i].Length; j++)
+                {
+                    string displayChar;
 
+                    if (gameBoard.board[i][j].SquareState == Enums.State.Undecided)
+                    {
+                        displayChar = " ";  // If Undecided, print blank
+                    }
+                    else
+                    {
+                        displayChar = gameBoard.board[i][j].SquareState.ToString();
+                    }
+
+                    Console.Write($" {displayChar} "); // Print X, O, or blank
+
+                    if (j < gameBoard.board[i].Length - 1)
+                        Console.Write("|");  // Add column separator
+                }
+
+                Console.WriteLine(); // Move to a new row
+
+                if (i < gameBoard.board.Length - 1)
+                    Console.WriteLine("---+---+---");
         }
+
     }
 }
