@@ -11,6 +11,7 @@ namespace TicTacToe.Enums
         X,
         O,
         Undecided
+        
     }
     public enum Result
     {

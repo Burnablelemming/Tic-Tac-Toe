@@ -13,7 +13,7 @@ namespace TicTacToe.Models
 
         private Result _gameResult;
 
-        private List<int> __usedPositions = new List<int>; //Keeps track of positions filled by storing them in the array.
+        private List<int> _usedPositions = new List<int> { }; //Keeps track of used positions on the board using a list.
         public GameManager()
         {
             _moves = 0;
@@ -29,13 +29,39 @@ namespace TicTacToe.Models
         public void StartGame(Player player1, Player player2)
         {
             Board gameBoard = new Board();
-            while (this._moves < 9 && this._gameResult == Enums.Result.Undecided) 
+            //DisplayBoard(gameBoard);
+            //Console.WriteLine($"{player1.Name}'s Turn");
+            //MakeMove(player1, gameBoard);
+            //DisplayBoard(gameBoard);
+            //Console.WriteLine($"{player2.Name}'s Turn");
+            //MakeMove(player2, gameBoard);
+            //DisplayBoard(gameBoard);
+            Console.WriteLine("Empty Board: ");
+            DisplayBoard(gameBoard);
+            while (this._gameResult == Enums.Result.Undecided)
             {
-                Console.WriteLine("Player 1 Makes move");
+                
+                Console.WriteLine($"{player1.Name}'s Turn");
                 MakeMove(player1, gameBoard);
-                MakeMove(player2 , gameBoard);
+                if(_moves == 9)
+                {
+                    DisplayBoard(gameBoard);
+                    Console.WriteLine("Game over");
+                    break;
+                }
+                Console.WriteLine(_moves);
+                DisplayBoard(gameBoard);
+                MakeMove(player2, gameBoard);
+                Console.WriteLine($"{player2.Name}'s Turn");
+                if (_moves == 9)
+                {
+                    DisplayBoard(gameBoard);
+                    Console.WriteLine("Game over");
+                    break;
+                }
+                DisplayBoard(gameBoard);
             }
-            
+
         }
 
         public void MakeMove(Player player, Board gameBoard)
@@ -46,47 +72,47 @@ namespace TicTacToe.Models
             {
                 case 1:
                     gameBoard.board[0][0].SquareState = player.PlayerChoice;
-                    _usedPositions[0] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 2:
                     gameBoard.board[0][1].SquareState = player.PlayerChoice;
-                    __usedPositions[1] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 3:
                     gameBoard.board[0][2].SquareState = player.PlayerChoice;
-                    __usedPositions[2] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 4:
                     gameBoard.board[1][0].SquareState = player.PlayerChoice;
-                    _usedPositions[3] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 5:
                     gameBoard.board[1][1].SquareState = player.PlayerChoice;
-                    _usedPositions[4] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 6:
                     gameBoard.board[1][2].SquareState = player.PlayerChoice;
-                    _usedPositions[5] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 7:
                     gameBoard.board[2][0].SquareState = player.PlayerChoice;
-                    _usedPositions[6] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 8:
                     gameBoard.board[2][1].SquareState = player.PlayerChoice;
-                    _usedPositions[7] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
                 case 9:
                     gameBoard.board[2][2].SquareState = player.PlayerChoice;
-                    _usedPositions[8] = position;
+                    _usedPositions.Add(position);
                     _moves++;
                     break;
             }
@@ -106,11 +132,12 @@ namespace TicTacToe.Models
 
                     if (position < 1 || position > 9) // Input out of range
                     {
-                        throw new Exception();  
+                        throw new Exception();
                     }
-                    else if (this._usedPositions.Contains(position)) 
+                    else if (_usedPositions.Contains(position))
                     {
                         Console.WriteLine("Invalid Input. Position already filled on board.");
+                        continue;
                     }
 
                     validInput = true;  // Valid input
@@ -122,6 +149,16 @@ namespace TicTacToe.Models
 
             }
             return position;
+        }
+
+        private void DisplayBoard(Board gameBoard)
+        {
+            Console.WriteLine($"{gameBoard.board[0][0].SquareState}|{gameBoard.board[0][1].SquareState}|{gameBoard.board[0][2].SquareState}"); // Row 1
+            Console.WriteLine("---+---+---");
+            Console.WriteLine($"{gameBoard.board[1][0].SquareState}|{gameBoard.board[1][1].SquareState}|{gameBoard.board[1][2].SquareState}"); // Row 2
+            Console.WriteLine("---+---+---");
+            Console.WriteLine($"{gameBoard.board[2][0].SquareState}|{gameBoard.board[2][1].SquareState}|{gameBoard.board[2][2].SquareState}"); // Row 3
+
         }
     }
 }

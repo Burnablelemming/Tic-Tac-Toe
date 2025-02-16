@@ -23,11 +23,11 @@ namespace TicTacToe.Models
 
         }
 
-        public Player(string name, State playerChoice, Result gameResult)
+        public Player(string name, State playerChoice)
         {
             Name = name;
             PlayerChoice = playerChoice;
-            GameResult = gameResult;
+            GameResult = Enums.Result.Undecided;
         }
     }
 }
