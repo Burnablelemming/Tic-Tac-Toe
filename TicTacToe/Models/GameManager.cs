@@ -20,51 +20,44 @@ namespace TicTacToe.Models
             _gameResult = Enums.Result.Undecided;
         }
 
-        //public GameManager(int moves, Enums.Result result)
-        //{
-        //    _moves = moves;
-        //    _gameResult = result;
-        //} 
-
         public void StartGame(Player player1, Player player2)
         {
             Board gameBoard = new Board();
-            //DisplayBoard(gameBoard);
-            //Console.WriteLine($"{player1.Name}'s Turn");
-            //MakeMove(player1, gameBoard);
-            //DisplayBoard(gameBoard);
-            //Console.WriteLine($"{player2.Name}'s Turn");
-            //MakeMove(player2, gameBoard);
-            //DisplayBoard(gameBoard);
+            
             Console.WriteLine("Empty Board: ");
             DisplayBoard(gameBoard);
-            while (this._gameResult == Enums.Result.Undecided)
+
+            while (this._gameResult == Enums.Result.Undecided && _moves < 9)
             {
-                
                 Console.WriteLine($"{player1.Name}'s Turn");
                 MakeMove(player1, gameBoard);
-                if(_moves == 9)
+                _gameResult = CheckBoardState(gameBoard);  // Check for a winner if moves >= 5
+                DisplayBoard(gameBoard);
+
+                if (_gameResult != Enums.Result.Undecided || _moves == 9)
                 {
                     DisplayBoard(gameBoard);
-                    Console.WriteLine("Game over");
+                    Console.WriteLine($"{_gameResult}");
                     break;
                 }
-                Console.WriteLine(_moves);
-                DisplayBoard(gameBoard);
-                MakeMove(player2, gameBoard);
+
                 Console.WriteLine($"{player2.Name}'s Turn");
-                if (_moves == 9)
+                MakeMove(player2, gameBoard);
+                _gameResult = CheckBoardState(gameBoard);  // Check again
+                DisplayBoard(gameBoard);
+
+                if (_gameResult != Enums.Result.Undecided || _moves == 9)
                 {
                     DisplayBoard(gameBoard);
-                    Console.WriteLine("Game over");
+                    Console.WriteLine($"{_gameResult}");
                     break;
                 }
-                DisplayBoard(gameBoard);
+
             }
 
         }
 
-        public void MakeMove(Player player, Board gameBoard)
+        private void MakeMove(Player player, Board gameBoard)
         {
             int position = getPlayerMove(gameBoard);
 
@@ -118,7 +111,15 @@ namespace TicTacToe.Models
             }
         }
 
-        public int getPlayerMove(Board gameBoard)
+        private Enums.Result CheckBoardState(Board gameBoard) 
+        { 
+            //Check row
+            //Check column
+            //Check Diagonals
+           
+        }
+
+        private int getPlayerMove(Board gameBoard)
         {
             int position = -1; //Before user input
             bool validInput = false;

@@ -14,8 +14,8 @@ namespace TicTacToe.Enums
     }
     public enum Result
     {
-        Win,
-        Lose,
+        X_Wins,
+        O_Wins,
         Cat,
         Undecided
     }
