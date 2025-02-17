@@ -20,10 +20,11 @@ namespace TicTacToe.Models
             _gameResult = Enums.Result.Undecided;
         }
 
+        // Starts the Tic-Tac-Toe game and runs until someone wins or the game is a tie
         public void StartGame(Player player1, Player player2)
         {
             Board gameBoard = new Board();
-            
+
             Console.WriteLine("Empty Board: ");
             DisplayBoard(gameBoard);
 
@@ -111,14 +112,7 @@ namespace TicTacToe.Models
             }
         }
 
-        private Enums.Result CheckBoardState(Board gameBoard) 
-        { 
-            //Check row
-            //Check column
-            //Check Diagonals
-           
-        }
-
+        // Validates user position before returning to MakeMove
         private int getPlayerMove(Board gameBoard)
         {
             int position = -1; //Before user input
@@ -152,6 +146,54 @@ namespace TicTacToe.Models
             return position;
         }
 
+        private Enums.Result CheckBoardState(Board gameBoard)
+        {
+            if (_moves < 5)
+            {
+                return _gameResult; // _gameResult is set to undecided by default
+            }
+
+
+            for (int i = 0; i < 3; i++)
+            {
+                // Check rows
+                if (gameBoard.board[i][0].SquareState == gameBoard.board[i][1].SquareState &&
+                    gameBoard.board[i][1].SquareState == gameBoard.board[i][2].SquareState &&
+                    gameBoard.board[i][0].SquareState != Enums.State.Undecided)
+                {
+                    return gameBoard.board[i][0].SquareState == Enums.State.X ? Enums.Result.X_Wins : Enums.Result.O_Wins;
+                }
+                //Check columns
+                if (gameBoard.board[0][i].SquareState == gameBoard.board[1][i].SquareState &&
+                    gameBoard.board[1][i].SquareState == gameBoard.board[2][i].SquareState &&
+                    gameBoard.board[0][i].SquareState != Enums.State.Undecided)
+                {
+                    return gameBoard.board[0][i].SquareState == Enums.State.X ? Enums.Result.X_Wins : Enums.Result.O_Wins;
+                }
+            }
+            //Check Diagonals
+            if (gameBoard.board[0][0].SquareState == gameBoard.board[1][1].SquareState &&
+                gameBoard.board[1][1].SquareState == gameBoard.board[2][2].SquareState &&
+                gameBoard.board[0][0].SquareState != Enums.State.Undecided)
+            {
+                return gameBoard.board[0][0].SquareState == Enums.State.X ? Enums.Result.X_Wins : Enums.Result.O_Wins;
+            }
+
+            if (gameBoard.board[0][2].SquareState == gameBoard.board[1][1].SquareState &&
+        gameBoard.board[1][1].SquareState == gameBoard.board[2][0].SquareState &&
+        gameBoard.board[0][2].SquareState != Enums.State.Undecided)
+            {
+                return gameBoard.board[0][2].SquareState == Enums.State.X ? Enums.Result.X_Wins : Enums.Result.O_Wins;
+            }
+
+            // If all moves are made and no winner, it's a draw
+            if (_moves == 9)
+                return Enums.Result.Cat;
+
+            return Enums.Result.Undecided;
+
+        }
+
         private void DisplayBoard(Board gameBoard)
         {
             for (int i = 0; i < gameBoard.board.Length; i++)
@@ -179,7 +221,8 @@ namespace TicTacToe.Models
 
                 if (i < gameBoard.board.Length - 1)
                     Console.WriteLine("---+---+---");
-        }
+            }
 
+        }
     }
 }
