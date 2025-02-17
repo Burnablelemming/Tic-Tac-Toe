@@ -12,14 +12,12 @@ namespace TicTacToe.Models
        
 
         public String Name { get; set; }
-        public State PlayerChoice { get; set; }
-        public Result GameResult { get; set; }
+        internal State PlayerChoice { get; set; }
 
-        public Player() 
+        internal Player() 
         {
             this.Name = "Undefined";
             this.PlayerChoice = Enums.State.Undecided;
-            this.GameResult = Enums.Result.Undecided;
 
         }
 
@@ -27,7 +25,6 @@ namespace TicTacToe.Models
         {
             Name = name;
             PlayerChoice = playerChoice;
-            GameResult = Enums.Result.Undecided;
         }
     }
 }

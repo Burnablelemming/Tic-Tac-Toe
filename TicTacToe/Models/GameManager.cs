@@ -38,8 +38,24 @@ namespace TicTacToe.Models
                 if (_gameResult != Enums.Result.Undecided || _moves == 9)
                 {
                     DisplayBoard(gameBoard);
-                    Console.WriteLine($"{_gameResult}");
-                    break;
+
+                    switch (_gameResult)
+                    {
+                        case Enums.Result.X_Wins:
+                            Console.WriteLine($"{player1.Name} Wins!");
+                            break;
+                        case Enums.Result.O_Wins:
+                            Console.WriteLine($"{player2.Name} Wins!");
+                            break;
+                            Console.WriteLine("It's a Draw!");
+                        case Enums.Result.Cat:  // No winner
+                            break;
+                        default:
+                            Console.WriteLine("Game Over!");  // _gameResult has not been set properly somewhere. Sooo not good. 
+                            break;
+                    }
+
+                    break;  // Exit the game loop
                 }
 
                 Console.WriteLine($"{player2.Name}'s Turn");
@@ -50,17 +66,34 @@ namespace TicTacToe.Models
                 if (_gameResult != Enums.Result.Undecided || _moves == 9)
                 {
                     DisplayBoard(gameBoard);
-                    Console.WriteLine($"{_gameResult}");
-                    break;
+
+                    switch (_gameResult)
+                    {
+                        case Enums.Result.X_Wins:
+                            Console.WriteLine("X Wins!");
+                            break;
+                        case Enums.Result.O_Wins:
+                            Console.WriteLine("O Wins!");
+                            break;
+                        case Enums.Result.Cat:  // No winner
+                            Console.WriteLine("It's a Draw!");
+                            break;
+                        default:
+                            Console.WriteLine("Game Over!");  // Just in case something unexpected happens
+                            break;
+                    }
+
+                    break;  // Exit the game loop
                 }
 
             }
 
         }
 
+        // Switch case is mapped to each position on the board
         private void MakeMove(Player player, Board gameBoard)
         {
-            int position = getPlayerMove(gameBoard);
+            int position = getPlayerMove(gameBoard); // Valid user input returned
 
             switch (position)
             {
@@ -139,7 +172,7 @@ namespace TicTacToe.Models
                 }
                 catch (Exception)  // Catches any invalid inputs
                 {
-                    Console.WriteLine("Invalid input. Enter a number between 1-9.");
+                    Console.WriteLine("Invalid input. Enter an integer between 1-9.");
                 }
 
             }
@@ -180,8 +213,8 @@ namespace TicTacToe.Models
             }
 
             if (gameBoard.board[0][2].SquareState == gameBoard.board[1][1].SquareState &&
-        gameBoard.board[1][1].SquareState == gameBoard.board[2][0].SquareState &&
-        gameBoard.board[0][2].SquareState != Enums.State.Undecided)
+                gameBoard.board[1][1].SquareState == gameBoard.board[2][0].SquareState &&
+                gameBoard.board[0][2].SquareState != Enums.State.Undecided)
             {
                 return gameBoard.board[0][2].SquareState == Enums.State.X ? Enums.Result.X_Wins : Enums.Result.O_Wins;
             }
@@ -192,6 +225,23 @@ namespace TicTacToe.Models
 
             return Enums.Result.Undecided;
 
+        }
+
+        public Player CreatePlayer(int playerNumber)
+        {
+            Console.Write($"Enter name for Player {playerNumber}: ");
+            string name = Console.ReadLine()?.Trim(); // Ignore null exception and continue
+
+            while (string.IsNullOrWhiteSpace(name))  // Ensure the name is not empty
+            {
+                Console.Write("Invalid input. Please enter a valid name: ");
+                name = Console.ReadLine()?.Trim();
+            }
+            if (playerNumber == 1)
+            {
+                return new Player { Name = name, PlayerChoice = State.X };
+            }
+            return new Player { Name = name, PlayerChoice = State.O };
         }
 
         private void DisplayBoard(Board gameBoard)
@@ -222,7 +272,7 @@ namespace TicTacToe.Models
                 if (i < gameBoard.board.Length - 1)
                     Console.WriteLine("---+---+---");
             }
-
+            Console.WriteLine();
         }
     }
 }

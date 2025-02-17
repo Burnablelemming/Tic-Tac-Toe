@@ -8,9 +8,9 @@ namespace TicTacToe.Models
 {
     internal class Board
     {
-        public Square[][] board = new Square[3][]; // Making each row a separate array
+        internal Square[][] board = new Square[3][]; // Making each row a separate array
 
-        public Board()  // Constructor initializes the board with empty square objects
+        internal Board()  // Constructor initializes the board with empty square objects
         {
             board[0] = new Square[3];
             board[1] = new Square[3];

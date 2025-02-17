@@ -16,7 +16,7 @@ namespace TicTacToe.Enums
     {
         X_Wins,
         O_Wins,
-        Cat,
+        Cat,        // Draw, no winner
         Undecided
     }
 }
