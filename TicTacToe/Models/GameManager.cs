@@ -173,44 +173,6 @@ namespace TicTacToe.Models
             }
         }
 
-        ///// <summary>
-        ///// Validates the players move and passes it to the MakeMove method
-        ///// </summary>
-        ///// <param name="gameBoard">The board being used for the game</param>
-        ///// <returns>Position to be played on the board</returns>
-        //private int getPlayerMove(Board gameBoard)
-        //{
-        //    int position = -1; //Before user input
-        //    bool validInput = false;
-
-        //    while (!validInput)
-        //    {
-        //        try
-        //        {
-        //            Console.Write("Enter a number between 1 and 9: ");
-        //            position = int.Parse(Console.ReadLine());
-
-        //            if (position < 1 || position > 9) // Input out of range
-        //            {
-        //                throw new Exception();
-        //            }
-        //            else if (UsedPositions.Contains(position))
-        //            {
-        //                Console.WriteLine("Invalid Input. Position already filled on board.");
-        //                continue;
-        //            }
-
-        //            validInput = true;  // Valid input
-        //        }
-        //        catch (Exception)  // Catches any invalid inputs
-        //        {
-        //            Console.WriteLine("Invalid input. Enter an integer between 1-9.");
-        //        }
-
-        //    }
-        //    return position;
-        //}
-
         /// <summary>
         /// Check the board to see if a player has won the game
         /// </summary>
@@ -285,40 +247,5 @@ namespace TicTacToe.Models
             }
             return new Player { Name = name, PlayerChoice = State.O };
         }
-
-        /// <summary>
-        /// Displays the board in the Tic-Tac-Toe format
-        /// </summary>
-        /// <param name="gameBoard">The board being used for the game</param>
-        //private void DisplayBoard(Board gameBoard)
-        //{
-        //    for (int i = 0; i < gameBoard.board.Length; i++)
-        //    {
-        //        for (int j = 0; j < gameBoard.board[i].Length; j++)
-        //        {
-        //            string displayChar;
-
-        //            if (gameBoard.board[i][j].SquareState == Enums.State.Undecided)
-        //            {
-        //                displayChar = " ";  // If Undecided, print blank
-        //            }
-        //            else
-        //            {
-        //                displayChar = gameBoard.board[i][j].SquareState.ToString();
-        //            }
-
-        //            Console.Write($" {displayChar} "); // Print X, O, or blank
-
-        //            if (j < gameBoard.board[i].Length - 1)
-        //                Console.Write("|");  // Add column separator
-        //        }
-
-        //        Console.WriteLine(); // Move to a new row
-
-        //        if (i < gameBoard.board.Length - 1)
-        //            Console.WriteLine("---+---+---");
-        //    }
-        //    Console.WriteLine();
-        //}
     }
 }
