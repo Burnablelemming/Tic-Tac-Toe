@@ -25,8 +25,8 @@ namespace TicTacToe.Models
         /// <summary>
         /// A list that holds filled positions on the board
         /// </summary>
-        private List<int> _usedPositions = new List<int> { }; //Keeps track of used positions on the board using a list.
-
+        //private List<int> UsedPositions = new List<int> { }; //Keeps track of used positions on the board using a list.
+        internal static List<int> UsedPositions = new List<int>();
         /// <summary>
         /// Initializes a new instance of the class with default values
         /// </summary>
@@ -47,7 +47,7 @@ namespace TicTacToe.Models
             Board gameBoard = new Board();
 
             Console.WriteLine("Empty Board: ");
-            DisplayBoard(gameBoard);
+            Board.DisplayBoard(gameBoard);
 
             while (this._gameResult == Enums.Result.Undecided && _moves < 9)
             {
@@ -55,11 +55,11 @@ namespace TicTacToe.Models
                 Console.WriteLine($"{player1.Name}'s Turn");
                 MakeMove(player1, gameBoard);
                 _gameResult = CheckBoardState(gameBoard);  // Check for a winner if moves >= 5
-                DisplayBoard(gameBoard);
+                Board.DisplayBoard(gameBoard);
 
                 if (_gameResult != Enums.Result.Undecided || _moves == 9)
                 {
-                    DisplayBoard(gameBoard);
+                    Board.DisplayBoard(gameBoard);
 
                     switch (_gameResult)
                     {
@@ -84,11 +84,11 @@ namespace TicTacToe.Models
                 Console.WriteLine($"{player2.Name}'s Turn");
                 MakeMove(player2, gameBoard);
                 _gameResult = CheckBoardState(gameBoard);  // Check again
-                DisplayBoard(gameBoard);
+                Board.DisplayBoard(gameBoard);
 
                 if (_gameResult != Enums.Result.Undecided || _moves == 9)
                 {
-                    DisplayBoard(gameBoard);
+                    Board.DisplayBoard(gameBoard);
 
                     switch (_gameResult)
                     {
@@ -120,96 +120,96 @@ namespace TicTacToe.Models
         /// <param name="gameBoard">The board being used for the game</param>
         private void MakeMove(Player player, Board gameBoard)
         {
-            int position = getPlayerMove(gameBoard); // Valid user input returned
-
+            //int position = getPlayerMove(gameBoard); // Valid user input returned
+            int position = Player.GetPlayerMove(gameBoard);
             // Switch case is mapped to each position on the board
             switch (position)
             {
                 case 1:
                     gameBoard.board[0][0].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 2:
                     gameBoard.board[0][1].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 3:
                     gameBoard.board[0][2].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 4:
                     gameBoard.board[1][0].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 5:
                     gameBoard.board[1][1].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 6:
                     gameBoard.board[1][2].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 7:
                     gameBoard.board[2][0].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 8:
                     gameBoard.board[2][1].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
                 case 9:
                     gameBoard.board[2][2].SquareState = player.PlayerChoice;
-                    _usedPositions.Add(position);
+                    UsedPositions.Add(position);
                     _moves++;
                     break;
             }
         }
 
-        /// <summary>
-        /// Validates the players move and passes it to the MakeMove method
-        /// </summary>
-        /// <param name="gameBoard">The board being used for the game</param>
-        /// <returns>Position to be played on the board</returns>
-        private int getPlayerMove(Board gameBoard)
-        {
-            int position = -1; //Before user input
-            bool validInput = false;
+        ///// <summary>
+        ///// Validates the players move and passes it to the MakeMove method
+        ///// </summary>
+        ///// <param name="gameBoard">The board being used for the game</param>
+        ///// <returns>Position to be played on the board</returns>
+        //private int getPlayerMove(Board gameBoard)
+        //{
+        //    int position = -1; //Before user input
+        //    bool validInput = false;
 
-            while (!validInput)
-            {
-                try
-                {
-                    Console.Write("Enter a number between 1 and 9: ");
-                    position = int.Parse(Console.ReadLine());
+        //    while (!validInput)
+        //    {
+        //        try
+        //        {
+        //            Console.Write("Enter a number between 1 and 9: ");
+        //            position = int.Parse(Console.ReadLine());
 
-                    if (position < 1 || position > 9) // Input out of range
-                    {
-                        throw new Exception();
-                    }
-                    else if (_usedPositions.Contains(position))
-                    {
-                        Console.WriteLine("Invalid Input. Position already filled on board.");
-                        continue;
-                    }
+        //            if (position < 1 || position > 9) // Input out of range
+        //            {
+        //                throw new Exception();
+        //            }
+        //            else if (UsedPositions.Contains(position))
+        //            {
+        //                Console.WriteLine("Invalid Input. Position already filled on board.");
+        //                continue;
+        //            }
 
-                    validInput = true;  // Valid input
-                }
-                catch (Exception)  // Catches any invalid inputs
-                {
-                    Console.WriteLine("Invalid input. Enter an integer between 1-9.");
-                }
+        //            validInput = true;  // Valid input
+        //        }
+        //        catch (Exception)  // Catches any invalid inputs
+        //        {
+        //            Console.WriteLine("Invalid input. Enter an integer between 1-9.");
+        //        }
 
-            }
-            return position;
-        }
+        //    }
+        //    return position;
+        //}
 
         /// <summary>
         /// Check the board to see if a player has won the game
@@ -290,35 +290,35 @@ namespace TicTacToe.Models
         /// Displays the board in the Tic-Tac-Toe format
         /// </summary>
         /// <param name="gameBoard">The board being used for the game</param>
-        private void DisplayBoard(Board gameBoard)
-        {
-            for (int i = 0; i < gameBoard.board.Length; i++)
-            {
-                for (int j = 0; j < gameBoard.board[i].Length; j++)
-                {
-                    string displayChar;
+        //private void DisplayBoard(Board gameBoard)
+        //{
+        //    for (int i = 0; i < gameBoard.board.Length; i++)
+        //    {
+        //        for (int j = 0; j < gameBoard.board[i].Length; j++)
+        //        {
+        //            string displayChar;
 
-                    if (gameBoard.board[i][j].SquareState == Enums.State.Undecided)
-                    {
-                        displayChar = " ";  // If Undecided, print blank
-                    }
-                    else
-                    {
-                        displayChar = gameBoard.board[i][j].SquareState.ToString();
-                    }
+        //            if (gameBoard.board[i][j].SquareState == Enums.State.Undecided)
+        //            {
+        //                displayChar = " ";  // If Undecided, print blank
+        //            }
+        //            else
+        //            {
+        //                displayChar = gameBoard.board[i][j].SquareState.ToString();
+        //            }
 
-                    Console.Write($" {displayChar} "); // Print X, O, or blank
+        //            Console.Write($" {displayChar} "); // Print X, O, or blank
 
-                    if (j < gameBoard.board[i].Length - 1)
-                        Console.Write("|");  // Add column separator
-                }
+        //            if (j < gameBoard.board[i].Length - 1)
+        //                Console.Write("|");  // Add column separator
+        //        }
 
-                Console.WriteLine(); // Move to a new row
+        //        Console.WriteLine(); // Move to a new row
 
-                if (i < gameBoard.board.Length - 1)
-                    Console.WriteLine("---+---+---");
-            }
-            Console.WriteLine();
-        }
+        //        if (i < gameBoard.board.Length - 1)
+        //            Console.WriteLine("---+---+---");
+        //    }
+        //    Console.WriteLine();
+        //}
     }
 }

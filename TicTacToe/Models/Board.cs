@@ -32,5 +32,40 @@ namespace TicTacToe.Models
                 }
             }
         }
+
+        /// <summary>
+        /// Displays the board in the Tic-Tac-Toe format
+        /// </summary>
+        /// <param name="gameBoard">The board being used for the game</param>
+        internal static void DisplayBoard(Board gameBoard)
+        {
+            for (int i = 0; i < gameBoard.board.Length; i++)
+            {
+                for (int j = 0; j < gameBoard.board[i].Length; j++)
+                {
+                    string displayChar;
+
+                    if (gameBoard.board[i][j].SquareState == Enums.State.Undecided)
+                    {
+                        displayChar = " ";  // If Undecided, print blank
+                    }
+                    else
+                    {
+                        displayChar = gameBoard.board[i][j].SquareState.ToString();
+                    }
+
+                    Console.Write($" {displayChar} "); // Print X, O, or blank
+
+                    if (j < gameBoard.board[i].Length - 1)
+                        Console.Write("|");  // Add column separator
+                }
+
+                Console.WriteLine(); // Move to a new row
+
+                if (i < gameBoard.board.Length - 1)
+                    Console.WriteLine("---+---+---");
+            }
+            Console.WriteLine();
+        }
     }
 }
