@@ -7,20 +7,41 @@ using TicTacToe.Enums;
 
 namespace TicTacToe.Models
 {
+    /// <summary>
+    /// Manages the Tic-Tac-Toe game logic
+    /// </summary>
     internal class GameManager
     {
+        /// <summary>
+        /// Holds the number of moves made during the game 
+        /// </summary>
         private int _moves;
 
+        /// <summary>
+        /// An enum that controls the state of the game. Either X wins, O wins, or tie
+        /// </summary>
         private Result _gameResult;
 
+        /// <summary>
+        /// A list that holds filled positions on the board
+        /// </summary>
         private List<int> _usedPositions = new List<int> { }; //Keeps track of used positions on the board using a list.
+
+        /// <summary>
+        /// Initializes a new instance of the class with default values
+        /// </summary>
+        ///  
         public GameManager()
         {
             _moves = 0;
             _gameResult = Enums.Result.Undecided;
         }
 
-        // Starts the Tic-Tac-Toe game and runs until someone wins or the game is a tie
+        /// <summary>
+        /// Starts Tic-Tac-Toe game and calls MakeMove for each player until the game is finished
+        /// </summary>
+        /// <param name="player1">The first player</param>
+        /// <param name="player2">The second player</param>
         public void StartGame(Player player1, Player player2)
         {
             Board gameBoard = new Board();
@@ -30,6 +51,7 @@ namespace TicTacToe.Models
 
             while (this._gameResult == Enums.Result.Undecided && _moves < 9)
             {
+                // Player 1's move
                 Console.WriteLine($"{player1.Name}'s Turn");
                 MakeMove(player1, gameBoard);
                 _gameResult = CheckBoardState(gameBoard);  // Check for a winner if moves >= 5
@@ -56,8 +78,9 @@ namespace TicTacToe.Models
                     }
 
                     break;  // Exit the game loop
-                }
+                } // End player 1's move
 
+                // Player 2's move
                 Console.WriteLine($"{player2.Name}'s Turn");
                 MakeMove(player2, gameBoard);
                 _gameResult = CheckBoardState(gameBoard);  // Check again
@@ -84,17 +107,22 @@ namespace TicTacToe.Models
                     }
 
                     break;  // Exit the game loop
-                }
+                } // End player 2's move
 
             }
 
         }
 
-        // Switch case is mapped to each position on the board
+        /// <summary>
+        /// Take a players move and maps it to a position on the board
+        /// </summary>
+        /// <param name="player">The player making the move</param>
+        /// <param name="gameBoard">The board being used for the game</param>
         private void MakeMove(Player player, Board gameBoard)
         {
             int position = getPlayerMove(gameBoard); // Valid user input returned
 
+            // Switch case is mapped to each position on the board
             switch (position)
             {
                 case 1:
@@ -145,7 +173,11 @@ namespace TicTacToe.Models
             }
         }
 
-        // Validates user position before returning to MakeMove
+        /// <summary>
+        /// Validates the players move and passes it to the MakeMove method
+        /// </summary>
+        /// <param name="gameBoard">The board being used for the game</param>
+        /// <returns>Position to be played on the board</returns>
         private int getPlayerMove(Board gameBoard)
         {
             int position = -1; //Before user input
@@ -179,6 +211,11 @@ namespace TicTacToe.Models
             return position;
         }
 
+        /// <summary>
+        /// Check the board to see if a player has won the game
+        /// </summary>
+        /// <param name="gameBoard">The board being used for the game</param>
+        /// <returns>An enum that indicates the game state</returns>
         private Enums.Result CheckBoardState(Board gameBoard)
         {
             if (_moves < 5)
@@ -227,6 +264,11 @@ namespace TicTacToe.Models
 
         }
 
+        /// <summary>
+        /// Gets the players name and and creates a player with it
+        /// </summary>
+        /// <param name="playerNumber"></param>
+        /// <returns>An instantiated player with name and state assigned</returns>
         public Player CreatePlayer(int playerNumber)
         {
             Console.Write($"Enter name for Player {playerNumber}: ");
@@ -244,6 +286,10 @@ namespace TicTacToe.Models
             return new Player { Name = name, PlayerChoice = State.O };
         }
 
+        /// <summary>
+        /// Displays the board in the Tic-Tac-Toe format
+        /// </summary>
+        /// <param name="gameBoard">The board being used for the game</param>
         private void DisplayBoard(Board gameBoard)
         {
             for (int i = 0; i < gameBoard.board.Length; i++)

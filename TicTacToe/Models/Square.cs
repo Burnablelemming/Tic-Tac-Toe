@@ -9,7 +9,14 @@ namespace TicTacToe.Models
 {
     internal class Square
     {
+        /// <summary>
+        /// Tracks the position based on 1-9 indexing
+        /// </summary>
         public int BoardPosition { get; set; }
+
+        /// <summary>
+        /// State of the square: X, O, Undecided
+        /// </summary>
         public State SquareState { get; set; }
 
         public Square() { }
