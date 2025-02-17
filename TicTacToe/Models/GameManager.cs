@@ -47,8 +47,8 @@ namespace TicTacToe.Models
                         case Enums.Result.O_Wins:
                             Console.WriteLine($"{player2.Name} Wins!");
                             break;
-                            Console.WriteLine("It's a Draw!");
-                        case Enums.Result.Cat:  // No winner
+                        case Enums.Result.Cat:
+                            Console.WriteLine("It's a Draw!"); // No winner
                             break;
                         default:
                             Console.WriteLine("Game Over!");  // _gameResult has not been set properly somewhere. Sooo not good. 
@@ -70,16 +70,16 @@ namespace TicTacToe.Models
                     switch (_gameResult)
                     {
                         case Enums.Result.X_Wins:
-                            Console.WriteLine("X Wins!");
+                            Console.WriteLine($"{player1.Name} Wins!");
                             break;
                         case Enums.Result.O_Wins:
-                            Console.WriteLine("O Wins!");
+                            Console.WriteLine($"{player2.Name} Wins!");
                             break;
-                        case Enums.Result.Cat:  // No winner
-                            Console.WriteLine("It's a Draw!");
+                        case Enums.Result.Cat:
+                            Console.WriteLine("It's a Draw!"); // No winner
                             break;
                         default:
-                            Console.WriteLine("Game Over!");  // Just in case something unexpected happens
+                            Console.WriteLine("Game Over!");  // _gameResult has not been set properly somewhere. Sooo not good. 
                             break;
                     }
 

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TicTacToe.Enums
 {
-    public enum State
+    internal enum State
     {
         X,
         O,
         Undecided
     }
-    public enum Result
+    internal enum Result
     {
         X_Wins,
         O_Wins,

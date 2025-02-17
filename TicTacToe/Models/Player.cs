@@ -11,7 +11,7 @@ namespace TicTacToe.Models
     {
        
 
-        public String Name { get; set; }
+        internal String Name { get; set; }
         internal State PlayerChoice { get; set; }
 
         internal Player() 
@@ -21,7 +21,7 @@ namespace TicTacToe.Models
 
         }
 
-        public Player(string name, State playerChoice)
+        internal Player(string name, State playerChoice)
         {
             Name = name;
             PlayerChoice = playerChoice;
